@@ -1,0 +1,55 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" width="120" height="120">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0a2560" />
+      <stop offset="100%" stop-color="#1d4ed8" />
+    </linearGradient>
+    <linearGradient id="skinGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#E0A97E" />
+      <stop offset="100%" stop-color="#C58958" />
+    </linearGradient>
+    <linearGradient id="shirtGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FFFFFF" />
+      <stop offset="100%" stop-color="#E2E8F0" />
+    </linearGradient>
+  </defs>
+  <!-- Background Circle -->
+  <circle cx="60" cy="60" r="60" fill="url(#bgGrad)" />
+  
+  <!-- Subtle Inner Ring -->
+  <circle cx="60" cy="60" r="57" fill="none" stroke="#FBBF24" stroke-width="2" opacity="0.6" />
+
+  <!-- Body / Shoulders -->
+  <path d="M 22 120 C 22 92, 40 82, 60 82 C 80 82, 98 92, 98 120 Z" fill="url(#shirtGrad)" />
+  
+  <!-- Collar -->
+  <path d="M 50 82 L 60 96 L 70 82 Z" fill="#CBD5E1" />
+  <path d="M 44 83 L 56 89 L 52 82 Z" fill="#FFFFFF" />
+  <path d="M 76 83 L 64 89 L 68 82 Z" fill="#FFFFFF" />
+
+  <!-- Neck -->
+  <path d="M 52 70 L 52 84 L 68 84 L 68 70 Z" fill="#C58958" />
+
+  <!-- Head -->
+  <ellipse cx="60" cy="52" rx="20" ry="24" fill="url(#skinGrad)" />
+
+  <!-- Hair -->
+  <path d="M 38 48 C 38 28, 82 28, 82 48 C 82 34, 74 26, 60 26 C 46 26, 38 34, 38 48 Z" fill="#1E293B" />
+  <path d="M 40 45 C 44 38, 56 38, 62 42 C 70 38, 78 40, 80 46 C 78 36, 70 30, 60 30 C 50 30, 42 36, 40 45 Z" fill="#0F172A" />
+
+  <!-- Ears -->
+  <circle cx="39" cy="54" r="4.5" fill="#C58958" />
+  <circle cx="81" cy="54" r="4.5" fill="#C58958" />
+
+  <!-- Eyes and Brows -->
+  <path d="M 48 45 Q 53 43 55 45" stroke="#0F172A" stroke-width="2" stroke-linecap="round" fill="none" />
+  <path d="M 65 45 Q 67 43 72 45" stroke="#0F172A" stroke-width="2" stroke-linecap="round" fill="none" />
+  <circle cx="51.5" cy="51" r="2.2" fill="#0F172A" />
+  <circle cx="68.5" cy="51" r="2.2" fill="#0F172A" />
+
+  <!-- Nose -->
+  <path d="M 60 50 L 58.5 58 L 62 58" stroke="#A96B3E" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" fill="none" />
+
+  <!-- Smile -->
+  <path d="M 54 64 Q 60 68 66 64" stroke="#874720" stroke-width="2" stroke-linecap="round" fill="none" />
+</svg>

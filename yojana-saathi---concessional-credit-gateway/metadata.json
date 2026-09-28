@@ -1,0 +1,6 @@
+{
+  "name": "Yojana Saathi - Concessional Credit Gateway",
+  "description": "Smart India Hackathon AI-Driven Scheme Matcher, Financial EMI Projector, and Geo-Spatial Eligible Channel Partner Locator for NSFDC & welfare credit schemes.",
+  "requestFramePermissions": ["geolocation"],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

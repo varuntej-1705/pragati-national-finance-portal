@@ -1,0 +1,308 @@
+[
+  {
+    "id": "nsfdc-mcs-01",
+    "code": "NSFDC-MCS",
+    "name": "NSFDC Micro Credit Finance Scheme (MCS)",
+    "ministry": "Ministry of Social Justice and Empowerment (MoSJE)",
+    "implementingAgency": "National Scheduled Castes Finance and Development Corporation (NSFDC)",
+    "schemeType": "MICRO_FINANCE",
+    "maxLoanAmount": 140000,
+    "maxCoveragePercent": 90,
+    "interestRateMin": 5.0,
+    "interestRateMax": 6.0,
+    "womenRebatePercent": 0.5,
+    "moratoriumMonthsMin": 3,
+    "moratoriumMonthsMax": 6,
+    "maxRepaymentYears": 3,
+    "incomeCeiling": 500000,
+    "targetAudience": "Scheduled Caste individuals, small artisans, petty shopkeepers, street vendors",
+    "briefDescription": "Concessional micro-credit assistance up to ₹1.40 Lakh for small income-generating activities and self-employment ventures.",
+    "detailedBenefits": [
+      "Provides up to 90% of project cost, maximum ₹1,40,000",
+      "Very low interest rate of 5% - 6% p.a.",
+      "0.5% interest rebate for women entrepreneurs (Mahila Samriddhi)",
+      "Moratorium period of 3-6 months before repayment starts",
+      "Fast-track sanction through State Channelizing Agencies and NBFC-MFIs"
+    ],
+    "requiredDocuments": [
+      "Aadhaar Card",
+      "Caste Certificate (SC)",
+      "Income Certificate (Family income <= ₹5.00 Lakhs)",
+      "Bank Account Passbook / Proof",
+      "Small Project Cost Quotation"
+    ],
+    "applicationProcedure": [
+      "Submit application to designated State Channelizing Agency (SCA) or empaneled NBFC-MFI",
+      "Document verification by Channel Partner",
+      "Sanction and disbursement of funds directly to bank account"
+    ],
+    "officialPortalUrl": "https://nsfdc.nic.in/en/micro-credit-scheme",
+    "isActive": true,
+    "rules": [
+      {
+        "fieldName": "category",
+        "operator": "==",
+        "ruleValue": "SC",
+        "isMandatory": true,
+        "description": "Applicant must belong to Scheduled Caste (SC)"
+      },
+      {
+        "fieldName": "annualFamilyIncome",
+        "operator": "<=",
+        "ruleValue": 500000,
+        "isMandatory": true,
+        "description": "Annual family income must not exceed ₹5,00,000"
+      },
+      {
+        "fieldName": "estimatedCost",
+        "operator": "<=",
+        "ruleValue": 150000,
+        "isMandatory": false,
+        "description": "Suitable for project costs up to ₹1.40 Lakh (with 10% promoter contribution)"
+      }
+    ]
+  },
+  {
+    "id": "nsfdc-tls-02",
+    "code": "NSFDC-TLS",
+    "name": "NSFDC Term Loan Scheme",
+    "ministry": "Ministry of Social Justice and Empowerment (MoSJE)",
+    "implementingAgency": "National Scheduled Castes Finance and Development Corporation (NSFDC)",
+    "schemeType": "TERM_LOAN",
+    "maxLoanAmount": 5000000,
+    "maxCoveragePercent": 90,
+    "interestRateMin": 6.0,
+    "interestRateMax": 9.5,
+    "womenRebatePercent": 0.5,
+    "moratoriumMonthsMin": 6,
+    "moratoriumMonthsMax": 12,
+    "maxRepaymentYears": 10,
+    "incomeCeiling": 500000,
+    "targetAudience": "Scheduled Caste entrepreneurs setting up small and medium scale enterprises, transport, service or manufacturing units",
+    "briefDescription": "Substantial financial assistance up to ₹50.00 Lakhs for commercially viable self-employment and entrepreneurial projects.",
+    "detailedBenefits": [
+      "Financial assistance up to 90% of project cost, maximum ₹50.00 Lakhs",
+      "Repayment tenure up to 10 years including moratorium period",
+      "Moratorium period of 6 to 12 months depending on project gestation",
+      "Subsidized interest rate between 6% and 9.5% p.a."
+    ],
+    "requiredDocuments": [
+      "Aadhaar Card",
+      "Caste Certificate (SC)",
+      "Income Certificate (Family income <= ₹5.00 Lakhs)",
+      "Detailed Project Report (DPR) with machinery/cost quotations",
+      "PAN Card & Bank Statement for 6 months",
+      "Business Premises proof / NOC"
+    ],
+    "applicationProcedure": [
+      "Prepare Detailed Project Report (DPR)",
+      "Submit to State Channelizing Agency (SCA) or participating Public Sector Bank (PSB/RRB)",
+      "Technical and financial appraisal by Channel Partner",
+      "Fund disbursement upon loan sanction"
+    ],
+    "officialPortalUrl": "https://nsfdc.nic.in/en/term-loan-scheme",
+    "isActive": true,
+    "rules": [
+      {
+        "fieldName": "category",
+        "operator": "==",
+        "ruleValue": "SC",
+        "isMandatory": true,
+        "description": "Applicant must belong to Scheduled Caste (SC)"
+      },
+      {
+        "fieldName": "annualFamilyIncome",
+        "operator": "<=",
+        "ruleValue": 500000,
+        "isMandatory": true,
+        "description": "Annual family income must not exceed ₹5,00,000"
+      },
+      {
+        "fieldName": "estimatedCost",
+        "operator": ">=",
+        "ruleValue": 100000,
+        "isMandatory": false,
+        "description": "Designed for capital investments from ₹1 Lakh up to ₹50 Lakhs"
+      }
+    ]
+  },
+  {
+    "id": "nsfdc-els-03",
+    "code": "NSFDC-ELS",
+    "name": "NSFDC Educational Loan Scheme (Higher & Technical Education)",
+    "ministry": "Ministry of Social Justice and Empowerment (MoSJE)",
+    "implementingAgency": "National Scheduled Castes Finance and Development Corporation (NSFDC)",
+    "schemeType": "EDUCATIONAL_LOAN",
+    "maxLoanAmount": 2000000,
+    "maxCoveragePercent": 90,
+    "interestRateMin": 4.0,
+    "interestRateMax": 6.5,
+    "womenRebatePercent": 0.5,
+    "moratoriumMonthsMin": 6,
+    "moratoriumMonthsMax": 12,
+    "maxRepaymentYears": 10,
+    "incomeCeiling": 500000,
+    "targetAudience": "Scheduled Caste students pursuing recognized professional and technical degree/diploma courses in India or abroad",
+    "briefDescription": "Concessional education loan up to ₹10 Lakhs in India and ₹20 Lakhs abroad at ultra-low interest rates with full study-period moratorium.",
+    "detailedBenefits": [
+      "Up to ₹10 Lakhs for studies in India; up to ₹20 Lakhs for studies abroad",
+      "Covers admission fees, books, equipment, hostel & boarding expenses",
+      "Concessional interest rate: 4% p.a. for girls/women, 4.5% - 6% p.a. for boys",
+      "Moratorium period covers full course duration + 6 months after getting a job or 1 year after course completion"
+    ],
+    "requiredDocuments": [
+      "Aadhaar Card",
+      "Caste Certificate (SC)",
+      "Income Certificate (Family income <= ₹5.00 Lakhs)",
+      "Admission letter & Fee Structure from recognized University/College",
+      "10th, 12th & Graduation Marksheets (as applicable)",
+      "Passport and Visa (for abroad studies)"
+    ],
+    "applicationProcedure": [
+      "Submit application with college offer letter to nominated SCA or partner bank",
+      "Verification of admission credentials and financial eligibility",
+      "Direct disbursement of tuition fee to educational institution"
+    ],
+    "officialPortalUrl": "https://nsfdc.nic.in/en/education-loan-scheme",
+    "isActive": true,
+    "rules": [
+      {
+        "fieldName": "category",
+        "operator": "==",
+        "ruleValue": "SC",
+        "isMandatory": true,
+        "description": "Applicant must belong to Scheduled Caste (SC)"
+      },
+      {
+        "fieldName": "annualFamilyIncome",
+        "operator": "<=",
+        "ruleValue": 500000,
+        "isMandatory": true,
+        "description": "Annual family income must not exceed ₹5,00,000"
+      },
+      {
+        "fieldName": "projectType",
+        "operator": "IN",
+        "ruleValue": ["education", "higher_education", "study_india", "study_abroad", "technical_course"],
+        "isMandatory": false,
+        "description": "Purpose must be recognized higher or technical education"
+      }
+    ]
+  },
+  {
+    "id": "nsfdc-msy-04",
+    "code": "NSFDC-MSY",
+    "name": "Mahila Samriddhi Yojana (MSY)",
+    "ministry": "Ministry of Social Justice and Empowerment (MoSJE)",
+    "implementingAgency": "National Scheduled Castes Finance and Development Corporation (NSFDC)",
+    "schemeType": "SPECIAL_WOMEN_SHG",
+    "maxLoanAmount": 140000,
+    "maxCoveragePercent": 95,
+    "interestRateMin": 4.0,
+    "interestRateMax": 5.0,
+    "womenRebatePercent": 1.0,
+    "moratoriumMonthsMin": 3,
+    "moratoriumMonthsMax": 6,
+    "maxRepaymentYears": 4,
+    "incomeCeiling": 500000,
+    "targetAudience": "Scheduled Caste women entrepreneurs and women Self-Help Groups (SHGs)",
+    "briefDescription": "Special micro-finance scheme exclusively for women entrepreneurs belonging to Scheduled Castes with interest rate as low as 4% p.a.",
+    "detailedBenefits": [
+      "Up to ₹1,40,000 per woman beneficiary (or ₹14 Lakhs per SHG of 10 women)",
+      "95% project cost funded with minimal margin money",
+      "Deep concessional rate of 4% p.a. to end beneficiaries",
+      "Flexible repayment terms and simple documentation"
+    ],
+    "requiredDocuments": [
+      "Aadhaar Card",
+      "SC Caste Certificate",
+      "Income Certificate (Family income <= ₹5.00 Lakhs)",
+      "SHG membership resolution (if applying as group)",
+      "Bank Account details"
+    ],
+    "applicationProcedure": [
+      "Apply through local SCA, Rural Bank, or designated Women Development Corporation",
+      "SCA verification of SHG/individual credentials",
+      "Disbursement with revolving credit option"
+    ],
+    "officialPortalUrl": "https://nsfdc.nic.in/en/mahila-samriddhi-yojana",
+    "isActive": true,
+    "rules": [
+      {
+        "fieldName": "category",
+        "operator": "==",
+        "ruleValue": "SC",
+        "isMandatory": true,
+        "description": "Applicant must belong to Scheduled Caste (SC)"
+      },
+      {
+        "fieldName": "gender",
+        "operator": "==",
+        "ruleValue": "female",
+        "isMandatory": true,
+        "description": "Beneficiary must be a woman or women SHG"
+      },
+      {
+        "fieldName": "annualFamilyIncome",
+        "operator": "<=",
+        "ruleValue": 500000,
+        "isMandatory": true,
+        "description": "Annual family income must not exceed ₹5,00,000"
+      }
+    ]
+  },
+  {
+    "id": "nsfdc-visvas-05",
+    "code": "VISVAS-YOJANA",
+    "name": "VISVAS Yojana (Vanchit Ikai Samooh Aur Vargon Ki Aarthik Sahayta)",
+    "ministry": "Ministry of Social Justice and Empowerment (MoSJE)",
+    "implementingAgency": "National Scheduled Castes Finance and Development Corporation (NSFDC)",
+    "schemeType": "SPECIAL_WOMEN_SHG",
+    "maxLoanAmount": 400000,
+    "maxCoveragePercent": 100,
+    "interestRateMin": 5.0,
+    "interestRateMax": 7.0,
+    "womenRebatePercent": 0.5,
+    "moratoriumMonthsMin": 3,
+    "moratoriumMonthsMax": 6,
+    "maxRepaymentYears": 5,
+    "incomeCeiling": 500000,
+    "targetAudience": "SC Self-Help Groups (SHGs) and individual SC borrowers registered with channelizing banks",
+    "briefDescription": "5% annual interest subvention directly credited into accounts of SC SHGs and individual micro-credit borrowers.",
+    "detailedBenefits": [
+      "Direct 5% interest subvention transferred via DBT",
+      "Eligible on loans up to ₹4.00 Lakhs for SHGs and up to ₹2.00 Lakhs for individual borrowers",
+      "Reduces effective borrowing rate to negligible levels for disciplined payers",
+      "Covers accounts in good standing across PSBs and RRBs"
+    ],
+    "requiredDocuments": [
+      "Sanction letter of existing loan from Bank / SCA",
+      "SC Certificate",
+      "Aadhaar-linked Bank Account",
+      "Repayment track record"
+    ],
+    "applicationProcedure": [
+      "Bank / Channel partner uploads eligible borrower portfolio",
+      "NSFDC validates DBT linkage",
+      "Interest subvention credited quarterly to loan account"
+    ],
+    "officialPortalUrl": "https://nsfdc.nic.in/en/visvas-yojana",
+    "isActive": true,
+    "rules": [
+      {
+        "fieldName": "category",
+        "operator": "==",
+        "ruleValue": "SC",
+        "isMandatory": true,
+        "description": "Borrower or majority SHG members must belong to SC"
+      },
+      {
+        "fieldName": "annualFamilyIncome",
+        "operator": "<=",
+        "ruleValue": 500000,
+        "isMandatory": true,
+        "description": "Annual family income must not exceed ₹5,00,000"
+      }
+    ]
+  }
+]

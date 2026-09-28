@@ -1,0 +1,30 @@
+{
+  "name": "scheme-matcher-monorepo",
+  "version": "1.0.0",
+  "private": true,
+  "description": "AI-Driven Scheme Matching Platform for Marginalized Entrepreneurs (SIH 2026 PS 26092)",
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "scripts": {
+    "dev": "npm --prefix frontend run dev",
+    "dev:frontend": "npm --prefix frontend run dev",
+    "dev:admin": "npm --prefix apps/admin-dashboard run dev",
+    "dev:facilitator": "npm --prefix apps/facilitator-dashboard run dev",
+    "dev:mobile": "npm --prefix apps/citizen-app run start",
+    "build:frontend": "npm --prefix frontend run build",
+    "lint": "npm run --workspaces --if-present lint",
+    "build": "npm run --workspaces --if-present build"
+  },
+  "keywords": [
+    "sih2026",
+    "scheme-matcher",
+    "fastapi",
+    "react",
+    "react-native",
+    "nsfdc"
+  ],
+  "author": "Varun (Arigonda Varun Teja)",
+  "license": "MIT"
+}
