@@ -38,38 +38,69 @@ export function generateRepaymentSchedulePdf(data: RepaymentPdfData): void {
 
   const pageWidth = 210;
   const margin = 14;
-  const contentWidth = pageWidth - margin * 2;
+  const contentWidth = pageWidth - margin * 2; // 182 mm
+  const rightEdge = margin + contentWidth;     // 196 mm
 
-  // 1. Tricolor Top Bar
+  // ─────────────────────────────────────────────────────────────
+  // 1. TRICOLOR TOP ACCENT BAR
+  // ─────────────────────────────────────────────────────────────
   doc.setFillColor(255, 153, 51); // Saffron
   doc.rect(0, 0, pageWidth, 2.5, 'F');
   doc.setFillColor(255, 255, 255); // White
   doc.rect(0, 2.5, pageWidth, 1, 'F');
-  doc.setFillColor(19, 136, 8); // Green
+  doc.setFillColor(19, 136, 8);   // Green
   doc.rect(0, 3.5, pageWidth, 2.5, 'F');
 
-  // 2. Official Header Banner
+  // ─────────────────────────────────────────────────────────────
+  // 2. OFFICIAL HEADER BANNER
+  // ─────────────────────────────────────────────────────────────
   doc.setFillColor(10, 37, 96); // Deep Navy (#0a2560)
-  doc.rect(0, 6, pageWidth, 28, 'F');
+  doc.rect(0, 6, pageWidth, 26, 'F');
 
   doc.setTextColor(251, 191, 36); // Amber 400
   doc.setFont('helvetica', 'bold');
-  doc.setFontSize(8);
-  doc.text('भारत सरकार • GOVERNMENT OF INDIA • MINISTRY OF SOCIAL JUSTICE & EMPOWERMENT', pageWidth / 2, 12, { align: 'center' });
+  doc.setFontSize(7.5);
+  doc.text(
+    'GOVERNMENT OF INDIA  •  MINISTRY OF SOCIAL JUSTICE & EMPOWERMENT',
+    pageWidth / 2,
+    11.5,
+    { align: 'center' }
+  );
 
   doc.setTextColor(255, 255, 255);
-  doc.setFontSize(13);
-  doc.text('PRAGATI • NATIONAL CONCESSIONAL FINANCE PORTAL', pageWidth / 2, 19, { align: 'center' });
+  doc.setFontSize(12.5);
+  doc.text(
+    'PRAGATI • NATIONAL CONCESSIONAL CREDIT GATEWAY',
+    pageWidth / 2,
+    18,
+    { align: 'center' }
+  );
 
   doc.setFont('helvetica', 'normal');
-  doc.setFontSize(8);
+  doc.setFontSize(7.5);
   doc.setTextColor(226, 232, 240);
-  doc.text('Direct Concessional Credit Delivery System (NBCFDC • NSFDC • NSKFDC)', pageWidth / 2, 24, { align: 'center' });
-  doc.text('OFFICIAL LOAN FEASIBILITY & INDICATIVE REPAYMENT STATEMENT', pageWidth / 2, 29, { align: 'center' });
+  doc.text(
+    'National Scheduled Castes & Backward Classes Finance and Development Corporations (NSFDC / NBCFDC)',
+    pageWidth / 2,
+    23,
+    { align: 'center' }
+  );
 
-  let y = 38;
+  doc.setFont('helvetica', 'bold');
+  doc.setFontSize(7.5);
+  doc.setTextColor(147, 197, 253); // Light Blue
+  doc.text(
+    'OFFICIAL LOAN FEASIBILITY & INDICATIVE REPAYMENT STATEMENT',
+    pageWidth / 2,
+    28,
+    { align: 'center' }
+  );
 
-  // 3. Document Reference & Verification Meta Box
+  let y = 35;
+
+  // ─────────────────────────────────────────────────────────────
+  // 3. REFERENCE ID & STATUS RIBBON
+  // ─────────────────────────────────────────────────────────────
   const refNumber = `PRAGATI/2026/FIN-${Math.floor(100000 + Math.random() * 900000)}`;
   const dateStr = new Date().toLocaleDateString('en-IN', {
     day: '2-digit',
@@ -79,164 +110,238 @@ export function generateRepaymentSchedulePdf(data: RepaymentPdfData): void {
 
   doc.setFillColor(248, 250, 252);
   doc.setDrawColor(203, 213, 225);
-  doc.roundedRect(margin, y, contentWidth, 14, 2, 2, 'FD');
+  doc.roundedRect(margin, y, contentWidth, 11, 1.5, 1.5, 'FD');
 
   doc.setFont('helvetica', 'bold');
-  doc.setFontSize(8);
+  doc.setFontSize(7.5);
   doc.setTextColor(15, 23, 42);
-  doc.text(`REFERENCE ID: ${refNumber}`, margin + 4, y + 5.5);
-  doc.text(`GENERATED ON: ${dateStr}`, margin + 4, y + 10);
+  doc.text(`REFERENCE ID: ${refNumber}`, margin + 4, y + 4.5);
+  doc.setFont('helvetica', 'normal');
+  doc.setTextColor(71, 85, 105);
+  doc.text(`GENERATED ON: ${dateStr}`, margin + 4, y + 8.5);
 
-  doc.setTextColor(0, 55, 176);
-  doc.text('GATEWAY: NIC CERTIFIED DBT DIGITAL REPOSITORY', pageWidth - margin - 4, y + 5.5, { align: 'right' });
-  doc.setTextColor(16, 149, 102);
-  doc.text('STATUS: CONCESSIONAL SANCTION ELIGIBLE', pageWidth - margin - 4, y + 10, { align: 'right' });
-
-  y += 18;
-
-  // 4. Beneficiary Information Section
-  doc.setFillColor(15, 23, 42);
-  doc.rect(margin, y, contentWidth, 6, 'F');
-  doc.setTextColor(255, 255, 255);
   doc.setFont('helvetica', 'bold');
-  doc.setFontSize(8.5);
-  doc.text('SECTION 1: BENEFICIARY PROFILE & REGISTRATION SUMMARY', margin + 3, y + 4.2);
+  doc.setTextColor(0, 55, 176);
+  doc.text('NIC CERTIFIED DBT REPOSITORY', rightEdge - 4, y + 4.5, { align: 'right' });
+  doc.setTextColor(16, 149, 102);
+  doc.text('STATUS: CONCESSIONAL SANCTION ELIGIBLE', rightEdge - 4, y + 8.5, { align: 'right' });
 
-  y += 6;
+  y += 14;
+
+  // Helper for Section Titles
+  const drawSectionHeader = (title: string, currentY: number): number => {
+    doc.setFillColor(15, 23, 42);
+    doc.rect(margin, currentY, contentWidth, 5.5, 'F');
+    doc.setTextColor(255, 255, 255);
+    doc.setFont('helvetica', 'bold');
+    doc.setFontSize(7.5);
+    doc.text(title, margin + 4, currentY + 3.8);
+    return currentY + 5.5;
+  };
+
+  // ─────────────────────────────────────────────────────────────
+  // 4. SECTION 1: BENEFICIARY PROFILE & REGISTRATION SUMMARY
+  // ─────────────────────────────────────────────────────────────
+  y = drawSectionHeader('SECTION 1: BENEFICIARY PROFILE & REGISTRATION SUMMARY', y);
+
+  const sec1Height = 22;
   doc.setFillColor(255, 255, 255);
   doc.setDrawColor(226, 232, 240);
-  doc.rect(margin, y, contentWidth, 22, 'FD');
+  doc.rect(margin, y, contentWidth, sec1Height, 'FD');
 
-  const col1 = margin + 4;
-  const col2 = margin + 55;
-  const col3 = margin + 110;
+  // Two balanced columns: Left (width = 91mm), Right (width = 91mm)
+  const midX = margin + contentWidth / 2; // 14 + 91 = 105
+  doc.setDrawColor(241, 245, 249);
+  doc.line(midX, y, midX, y + sec1Height);
 
-  doc.setFontSize(7.5);
-  doc.setTextColor(100, 116, 139);
-  doc.text('Beneficiary Full Name:', col1, y + 5);
-  doc.text('Registered Mobile:', col1, y + 11);
-  doc.text('Target District / State:', col1, y + 17);
+  // Left Column fields
+  const leftFields = [
+    { label: 'Beneficiary Name', val: profile.name || 'Varun Kumar' },
+    { label: 'Registered Mobile', val: `+91 ${profile.phone || '9959999429'}` },
+    { label: 'Target District / State', val: `${profile.location?.district || 'Mohanlalganj'}, ${profile.location?.state || 'Uttar Pradesh'}` }
+  ];
 
-  doc.setTextColor(15, 23, 42);
-  doc.setFont('helvetica', 'bold');
-  doc.text(profile.name || 'Varun', col1 + 32, y + 5);
-  doc.text(`+91 ${profile.phone || '9959999429'}`, col1 + 32, y + 11);
-  doc.text(`${profile.location?.district || 'Mohanlalganj'}, ${profile.location?.state || 'UP'}`, col1 + 32, y + 17);
+  // Right Column fields
+  const rightFields = [
+    { label: 'Social Category', val: `${(profile.caste || 'OBC')} (Priority Concession)` },
+    { label: 'Concession Tier', val: 'Direct Subvention Scheme' },
+    { label: 'Target Activity', val: profile.projectType || 'Small Business / MSME' }
+  ];
 
-  doc.setFont('helvetica', 'normal');
-  doc.setTextColor(100, 116, 139);
-  doc.text('Social Category:', col3, y + 5);
-  doc.text('Concession Tier:', col3, y + 11);
-  doc.text('Target Activity:', col3, y + 17);
+  let fieldY = y + 4.5;
+  for (let i = 0; i < 3; i++) {
+    // Left column
+    doc.setFont('helvetica', 'normal');
+    doc.setFontSize(7.5);
+    doc.setTextColor(100, 116, 139);
+    doc.text(leftFields[i].label + ':', margin + 4, fieldY);
 
-  doc.setFont('helvetica', 'bold');
-  doc.setTextColor(15, 23, 42);
-  doc.text((profile.caste || 'OBC (Concessional Priority)').toUpperCase(), col3 + 26, y + 5);
-  doc.text('Special Interest Concession', col3 + 26, y + 11);
-  doc.text('Small Business / MSME', col3 + 26, y + 17);
+    doc.setFont('helvetica', 'bold');
+    doc.setTextColor(15, 23, 42);
+    doc.text(leftFields[i].val, margin + 38, fieldY);
 
-  y += 26;
+    // Right column
+    doc.setFont('helvetica', 'normal');
+    doc.setTextColor(100, 116, 139);
+    doc.text(rightFields[i].label + ':', midX + 4, fieldY);
 
-  // 5. Financial Scheme & Concession Architecture
-  doc.setFillColor(15, 23, 42);
-  doc.rect(margin, y, contentWidth, 6, 'F');
-  doc.setTextColor(255, 255, 255);
-  doc.setFont('helvetica', 'bold');
-  doc.setFontSize(8.5);
-  doc.text('SECTION 2: CONCESSIONAL FINANCIAL STRUCTURE & CAPITAL ALLOCATION', margin + 3, y + 4.2);
+    doc.setFont('helvetica', 'bold');
+    doc.setTextColor(15, 23, 42);
+    doc.text(rightFields[i].val, midX + 34, fieldY);
 
-  y += 6;
-  doc.setFillColor(250, 250, 250);
-  doc.setDrawColor(226, 232, 240);
-  doc.rect(margin, y, contentWidth, 36, 'FD');
+    fieldY += 6;
+  }
+
+  y += sec1Height + 3;
+
+  // ─────────────────────────────────────────────────────────────
+  // 5. SECTION 2: CONCESSIONAL FINANCIAL STRUCTURE & CAPITAL ALLOCATION
+  // ─────────────────────────────────────────────────────────────
+  y = drawSectionHeader('SECTION 2: CONCESSIONAL FINANCIAL STRUCTURE & CAPITAL ALLOCATION', y);
 
   const schemeName = schemeType === 'term' ? 'Term Loan Scheme (TL-90)' : 'Micro Credit Finance (MCF-100)';
 
-  const finRows = [
-    { label: 'Recommended Scheme Facility', val: schemeName, highlight: true },
-    { label: 'Total Assessed Project Outlay', val: `Rs. ${projectCost.toLocaleString('en-IN')}`, highlight: false },
-    { label: 'Concessional Corporation Debt (Principal)', val: `Rs. ${nsfdcShare.toLocaleString('en-IN')}`, highlight: true },
-    { label: 'Beneficiary Margin Contribution (Promoter)', val: `Rs. ${marginShare.toLocaleString('en-IN')}`, highlight: false },
-    { label: 'Effective Subsidized Interest Rate', val: `${interestRate.toFixed(2)}% p.a. (Fixed Concessional)`, highlight: true },
-    { label: 'Commercial Benchmark Rate Comparison', val: '11.50% p.a. (Open Market Rate)', highlight: false },
-    { label: 'Loan Tenure & Moratorium Window', val: `${tenureYears} Years (${tenureYears * 12} Mos) • ${moratoriumMonths} Mos Moratorium`, highlight: false },
-    { label: 'Calculated Subsidized Monthly Installment (EMI)', val: `Rs. ${monthlyEmi.toLocaleString('en-IN')} / month`, highlight: true },
-    { label: 'Direct Beneficiary Subvention Savings', val: `Rs. ${totalSubsidySavings.toLocaleString('en-IN')} across tenure`, highlight: true }
+  // Financial parameter table: 4 clean rows + 1 highlighted summary strip
+  const finTableRows: { label1: string; val1: string; highlight1?: boolean; label2: string; val2: string; highlight2?: boolean }[] = [
+    {
+      label1: 'Recommended Scheme Facility',
+      val1: schemeName,
+      highlight1: true,
+      label2: 'Total Assessed Project Outlay',
+      val2: `Rs. ${projectCost.toLocaleString('en-IN')}`
+    },
+    {
+      label1: 'Concessional Debt (Principal)',
+      val1: `Rs. ${nsfdcShare.toLocaleString('en-IN')}`,
+      highlight1: true,
+      label2: 'Promoter Margin Contribution',
+      val2: `Rs. ${marginShare.toLocaleString('en-IN')}`
+    },
+    {
+      label1: 'Effective Subsidized Rate',
+      val1: `${interestRate.toFixed(2)}% p.a. (Fixed)`,
+      highlight1: true,
+      label2: 'Commercial Benchmark Rate',
+      val2: '11.50% p.a. (Open Market)'
+    },
+    {
+      label1: 'Loan Tenure & Moratorium',
+      val1: `${tenureYears} Years (${moratoriumMonths}m Moratorium)`,
+      label2: 'Subsidized Monthly EMI',
+      val2: `Rs. ${monthlyEmi.toLocaleString('en-IN')} / mo`,
+      highlight2: true
+    }
   ];
 
-  let rY = y + 4.5;
-  for (let i = 0; i < finRows.length; i += 2) {
-    const leftItem = finRows[i];
-    const rightItem = finRows[i + 1];
+  const rowH = 6;
+  const sec2TableHeight = finTableRows.length * rowH;
 
+  doc.setFillColor(255, 255, 255);
+  doc.setDrawColor(226, 232, 240);
+  doc.rect(margin, y, contentWidth, sec2TableHeight, 'FD');
+
+  // Vertical divider down middle
+  doc.setDrawColor(241, 245, 249);
+  doc.line(midX, y, midX, y + sec2TableHeight);
+
+  let finY = y + 4.2;
+  finTableRows.forEach((r, idx) => {
+    // Alternating faint row shading
+    if (idx % 2 === 1) {
+      doc.setFillColor(248, 250, 252);
+      doc.rect(margin, y + idx * rowH, contentWidth, rowH, 'F');
+    }
+
+    // Left column: label left-aligned, value right-aligned at midX - 4
     doc.setFont('helvetica', 'normal');
     doc.setFontSize(7.5);
     doc.setTextColor(71, 85, 105);
-    doc.text(leftItem.label + ':', margin + 4, rY);
+    doc.text(r.label1, margin + 4, finY);
 
     doc.setFont('helvetica', 'bold');
-    doc.setTextColor(leftItem.highlight ? 0 : 15, leftItem.highlight ? 55 : 23, leftItem.highlight ? 176 : 42);
-    doc.text(leftItem.val, margin + 58, rY);
+    doc.setTextColor(r.highlight1 ? 0 : 15, r.highlight1 ? 55 : 23, r.highlight1 ? 176 : 42);
+    doc.text(r.val1, midX - 4, finY, { align: 'right' });
 
-    if (rightItem) {
-      doc.setFont('helvetica', 'normal');
-      doc.setTextColor(71, 85, 105);
-      doc.text(rightItem.label + ':', margin + 98, rY);
+    // Right column: label left-aligned, value right-aligned at rightEdge - 4
+    doc.setFont('helvetica', 'normal');
+    doc.setTextColor(71, 85, 105);
+    doc.text(r.label2, midX + 4, finY);
 
-      doc.setFont('helvetica', 'bold');
-      doc.setTextColor(rightItem.highlight ? 16 : 15, rightItem.highlight ? 149 : 23, rightItem.highlight ? 102 : 42);
-      doc.text(rightItem.val, margin + 148, rY);
-    }
-    rY += 6.5;
-  }
+    doc.setFont('helvetica', 'bold');
+    doc.setTextColor(r.highlight2 ? 16 : 15, r.highlight2 ? 149 : 23, r.highlight2 ? 102 : 42);
+    doc.text(r.val2, rightEdge - 4, finY, { align: 'right' });
 
-  y += 40;
+    finY += rowH;
+  });
 
-  // 6. Indicative Year-by-Year Repayment Schedule Table
-  doc.setFillColor(15, 23, 42);
-  doc.rect(margin, y, contentWidth, 6, 'F');
-  doc.setTextColor(255, 255, 255);
+  y += sec2TableHeight;
+
+  // Subvention Savings Highlight Strip
+  doc.setFillColor(240, 253, 244); // Light Emerald bg
+  doc.setDrawColor(187, 247, 208); // Emerald border
+  doc.rect(margin, y, contentWidth, 7, 'FD');
+
   doc.setFont('helvetica', 'bold');
-  doc.setFontSize(8.5);
-  doc.text('SECTION 3: INDICATIVE YEAR-BY-YEAR AMORTIZATION & DEBT SERVICE SCHEDULE', margin + 3, y + 4.2);
+  doc.setFontSize(7.5);
+  doc.setTextColor(22, 101, 52); // Dark Emerald
+  doc.text('DIRECT BENEFICIARY SUBVENTION BENEFIT:', margin + 4, y + 4.5);
 
-  y += 6;
+  const savingsText = `Total Interest Savings of Rs. ${totalSubsidySavings.toLocaleString('en-IN')} over commercial bank rates (Estimated at Rs. ${commercialEmi.toLocaleString('en-IN')}/mo)`;
+  doc.setFont('helvetica', 'normal');
+  doc.text(savingsText, rightEdge - 4, y + 4.5, { align: 'right' });
 
-  // Table Header
+  y += 10;
+
+  // ─────────────────────────────────────────────────────────────
+  // 6. SECTION 3: INDICATIVE AMORTIZATION & DEBT SERVICE SCHEDULE
+  // ─────────────────────────────────────────────────────────────
+  y = drawSectionHeader('SECTION 3: INDICATIVE YEAR-BY-YEAR AMORTIZATION & DEBT SERVICE SCHEDULE', y);
+
+  // Column geometry (total width = 182mm)
+  // Col 0: PERIOD (22mm)           -> [14, 36]
+  // Col 1: OPENING DEBT (32mm)     -> [36, 68]     right-align at 66
+  // Col 2: PRINCIPAL REPAID (32mm) -> [68, 100]    right-align at 98
+  // Col 3: INTEREST CHARGED (32mm) -> [100, 132]   right-align at 130
+  // Col 4: ANNUAL EMI (32mm)       -> [132, 164]   right-align at 162
+  // Col 5: CLOSING DEBT (32mm)     -> [164, 196]   right-align at 194
+  const colDefs = [
+    { label: 'PERIOD', xLeft: margin + 3, xRight: margin + 20, align: 'left' as const },
+    { label: 'OPENING DEBT (Rs.)', xLeft: margin + 22, xRight: margin + 52, align: 'right' as const },
+    { label: 'PRINCIPAL REPAID (Rs.)', xLeft: margin + 54, xRight: margin + 84, align: 'right' as const },
+    { label: 'INTEREST (Rs.)', xLeft: margin + 86, xRight: margin + 116, align: 'right' as const },
+    { label: 'ANNUAL EMI (Rs.)', xLeft: margin + 118, xRight: margin + 148, align: 'right' as const },
+    { label: 'CLOSING DEBT (Rs.)', xLeft: margin + 150, xRight: rightEdge - 3, align: 'right' as const }
+  ];
+
+  // Table Header Row
+  const thHeight = 6;
   doc.setFillColor(241, 245, 249);
-  doc.rect(margin, y, contentWidth, 6, 'F');
+  doc.rect(margin, y, contentWidth, thHeight, 'F');
   doc.setDrawColor(203, 213, 225);
-  doc.line(margin, y + 6, margin + contentWidth, y + 6);
+  doc.line(margin, y + thHeight, rightEdge, y + thHeight);
 
   doc.setFont('helvetica', 'bold');
   doc.setFontSize(7);
   doc.setTextColor(15, 23, 42);
 
-  const tCols = [
-    { name: 'PERIOD', x: margin + 3 },
-    { name: 'OPENING DEBT (Rs.)', x: margin + 25 },
-    { name: 'PRINCIPAL REPAID (Rs.)', x: margin + 65 },
-    { name: 'INTEREST CHARGED (Rs.)', x: margin + 110 },
-    { name: 'TOTAL ANNUAL EMI (Rs.)', x: margin + 145 },
-    { name: 'CLOSING DEBT (Rs.)', x: margin + 180, align: 'right' as const }
-  ];
-
-  tCols.forEach(col => {
+  colDefs.forEach(col => {
     if (col.align === 'right') {
-      doc.text(col.name, margin + contentWidth - 3, y + 4.2, { align: 'right' });
+      doc.text(col.label, col.xRight, y + 4.2, { align: 'right' });
     } else {
-      doc.text(col.name, col.x, y + 4.2);
+      doc.text(col.label, col.xLeft, y + 4.2);
     }
   });
 
-  y += 6;
+  y += thHeight;
 
-  // Generate Year-by-Year Amortization Breakdown
+  // Calculate Amortization Rows (cap display at 10 years to preserve 1-page layout)
   let currentBalance = nsfdcShare;
   const annualEmi = monthlyEmi * 12;
   const monthlyRate = interestRate / 100 / 12;
+  const displayYears = Math.min(tenureYears, 10);
+  const rowHeight = 5.2;
 
-  for (let year = 1; year <= tenureYears; year++) {
+  for (let year = 1; year <= displayYears; year++) {
     const openingYearBalance = currentBalance;
     let interestPaidThisYear = 0;
     let principalPaidThisYear = 0;
@@ -252,85 +357,117 @@ export function generateRepaymentSchedulePdf(data: RepaymentPdfData): void {
       if (currentBalance < 0) currentBalance = 0;
     }
 
-    const rowBg = year % 2 === 0 ? 248 : 255;
-    doc.setFillColor(rowBg, rowBg, rowBg);
-    doc.rect(margin, y, contentWidth, 5.5, 'F');
-    doc.setDrawColor(226, 232, 240);
-    doc.line(margin, y + 5.5, margin + contentWidth, y + 5.5);
+    // Row Background (zebra stripe)
+    const isEven = year % 2 === 0;
+    doc.setFillColor(isEven ? 248 : 255, isEven ? 250 : 255, isEven ? 252 : 255);
+    doc.rect(margin, y, contentWidth, rowHeight, 'F');
 
+    // Row Bottom Border
+    doc.setDrawColor(241, 245, 249);
+    doc.line(margin, y + rowHeight, rightEdge, y + rowHeight);
+
+    // Row Text
     doc.setFont('helvetica', 'normal');
     doc.setFontSize(7);
     doc.setTextColor(51, 65, 85);
 
-    doc.text(`Year ${year}`, margin + 3, y + 4);
-    doc.text(Math.round(openingYearBalance).toLocaleString('en-IN'), margin + 25, y + 4);
-    doc.text(Math.round(principalPaidThisYear).toLocaleString('en-IN'), margin + 65, y + 4);
-    doc.text(Math.round(interestPaidThisYear).toLocaleString('en-IN'), margin + 110, y + 4);
-    doc.text(Math.round(annualEmi).toLocaleString('en-IN'), margin + 145, y + 4);
-    doc.text(Math.round(currentBalance).toLocaleString('en-IN'), margin + contentWidth - 3, y + 4, { align: 'right' });
+    const periodStr = `Year ${year}`;
+    const openingStr = Math.round(openingYearBalance).toLocaleString('en-IN');
+    const principalStr = Math.round(principalPaidThisYear).toLocaleString('en-IN');
+    const interestStr = Math.round(interestPaidThisYear).toLocaleString('en-IN');
+    const emiStr = Math.round(annualEmi).toLocaleString('en-IN');
+    const closingStr = Math.round(currentBalance).toLocaleString('en-IN');
 
-    y += 5.5;
+    doc.text(periodStr, colDefs[0].xLeft, y + 3.7);
+    doc.text(openingStr, colDefs[1].xRight, y + 3.7, { align: 'right' });
+    doc.text(principalStr, colDefs[2].xRight, y + 3.7, { align: 'right' });
+    doc.text(interestStr, colDefs[3].xRight, y + 3.7, { align: 'right' });
+    doc.text(emiStr, colDefs[4].xRight, y + 3.7, { align: 'right' });
+
+    // Closing debt bolded
+    doc.setFont('helvetica', 'bold');
+    doc.setTextColor(15, 23, 42);
+    doc.text(closingStr, colDefs[5].xRight, y + 3.7, { align: 'right' });
+
+    y += rowHeight;
   }
 
-  y += 6;
+  y += 3;
 
-  // 7. Security Hash, Verification Seal & Disclaimer
-  doc.setFillColor(241, 245, 249);
+  // ─────────────────────────────────────────────────────────────
+  // 7. SECURITY HASH, VERIFICATION STAMP & LEGAL DISCLAIMER
+  // ─────────────────────────────────────────────────────────────
+  const footerCardHeight = 22;
+  doc.setFillColor(248, 250, 252);
   doc.setDrawColor(203, 213, 225);
-  doc.roundedRect(margin, y, contentWidth, 24, 2, 2, 'FD');
+  doc.roundedRect(margin, y, contentWidth, footerCardHeight, 1.5, 1.5, 'FD');
 
+  // Left Legal Notes (Width = 120mm)
   doc.setFont('helvetica', 'bold');
-  doc.setFontSize(7.5);
+  doc.setFontSize(7);
   doc.setTextColor(15, 23, 42);
-  doc.text('ELECTRONIC AUTHENTICATION & LEGAL COMPLIANCE', margin + 4, y + 5);
+  doc.text('ELECTRONIC AUTHENTICATION & STATUTORY COMPLIANCE', margin + 4, y + 4.5);
 
   doc.setFont('helvetica', 'normal');
-  doc.setFontSize(6.5);
+  doc.setFontSize(6.2);
   doc.setTextColor(100, 116, 139);
   doc.text(
-    '1. This statement is digitally compiled via the PRAGATI National Concessional Finance Engine for beneficiary guidance.',
+    '1. Digitally compiled via PRAGATI Concessional Finance Engine for beneficiary loan facilitation and assessment.',
     margin + 4,
-    y + 9
+    y + 8.5
   );
   doc.text(
-    '2. Concession benefits and interest subvention are strictly sanctioned per NBCFDC / NSFDC eligibility frameworks.',
+    '2. Concession subventions and terms are governed strictly under NBCFDC / NSFDC / NSKFDC statutory guidelines.',
     margin + 4,
-    y + 13
+    y + 12.5
   );
   doc.text(
-    '3. Present this document with KYC credentials at the nominated State Channelising Agency (SCA) or Regional Bank branch.',
+    '3. Present this document with Aadhaar and caste credentials at your nearest State Channelising Agency (SCA) or RRB branch.',
     margin + 4,
-    y + 17
+    y + 16.5
   );
 
-  // Digital Stamp Box
+  // Right Digital Stamp Box (Width = 50mm, from rightEdge - 52 to rightEdge - 2)
+  const stampWidth = 50;
+  const stampX = rightEdge - stampWidth - 2;
+  const stampCenter = stampX + stampWidth / 2;
+
   doc.setDrawColor(0, 55, 176);
   doc.setFillColor(238, 242, 255);
-  doc.roundedRect(pageWidth - margin - 52, y + 3, 48, 18, 1.5, 1.5, 'FD');
+  doc.roundedRect(stampX, y + 2.5, stampWidth, 17, 1.5, 1.5, 'FD');
 
   doc.setFont('helvetica', 'bold');
   doc.setFontSize(6.5);
   doc.setTextColor(0, 55, 176);
-  doc.text('NIC DIGITAL GATEWAY', pageWidth - margin - 28, y + 8, { align: 'center' });
+  doc.text('NIC DIGITAL GATEWAY', stampCenter, y + 6.8, { align: 'center' });
+
   doc.setTextColor(16, 149, 102);
-  doc.text('✓ DIGITALLY VERIFIED', pageWidth - margin - 28, y + 12, { align: 'center' });
+  doc.setFontSize(7);
+  doc.text('✓ DIGITALLY VERIFIED', stampCenter, y + 10.8, { align: 'center' });
+
   doc.setTextColor(100, 116, 139);
   doc.setFontSize(5.5);
-  doc.text(`HASH: ${Math.random().toString(36).substring(2, 10).toUpperCase()}-DBT-2026`, pageWidth - margin - 28, y + 16, { align: 'center' });
+  doc.setFont('helvetica', 'normal');
+  doc.text(`HASH: ${Math.random().toString(36).substring(2, 10).toUpperCase()}-DBT-2026`, stampCenter, y + 15, { align: 'center' });
 
-  // Footer Tricolor & Page Info
-  doc.setFillColor(255, 153, 51);
-  doc.rect(0, 292, pageWidth, 1.5, 'F');
-  doc.setFillColor(19, 136, 8);
-  doc.rect(0, 294.5, pageWidth, 2.5, 'F');
-
-  doc.setFont('helvetica', 'bold');
+  // ─────────────────────────────────────────────────────────────
+  // 8. PAGE FOOTER & TRICOLOR ACCENT
+  // ─────────────────────────────────────────────────────────────
+  doc.setFont('helvetica', 'normal');
   doc.setFontSize(6.5);
   doc.setTextColor(148, 163, 184);
   doc.text('PRAGATI • Ministry of Social Justice & Empowerment • Government of India', margin, 290);
-  doc.text('Page 1 of 1 • System Generated Official Document', pageWidth - margin, 290, { align: 'right' });
+  doc.text('Page 1 of 1 • System Generated Official Document', rightEdge, 290, { align: 'right' });
 
-  // Save the PDF
+  // Tricolor Bottom Strip
+  doc.setFillColor(255, 153, 51);
+  doc.rect(0, 292.5, pageWidth, 1.5, 'F');
+  doc.setFillColor(19, 136, 8);
+  doc.rect(0, 294, pageWidth, 3, 'F');
+
+  // ─────────────────────────────────────────────────────────────
+  // 9. SAVE FILE
+  // ─────────────────────────────────────────────────────────────
   const safeName = (profile.name || 'Citizen').replace(/[^a-zA-Z0-9]/g, '_');
   doc.save(`PRAGATI_Loan_Schedule_${safeName}.pdf`);
 }

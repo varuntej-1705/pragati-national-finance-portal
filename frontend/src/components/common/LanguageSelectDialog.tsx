@@ -59,11 +59,10 @@ export const LanguageSelectDialog: React.FC<LanguageSelectDialogProps> = ({
                 <button
                   key={lang.code}
                   onClick={() => onSelect(lang.code)}
-                  className={`relative p-4 rounded-2xl border-2 transition-all duration-200 flex flex-col items-center gap-1.5 group active:scale-[0.97] ${
-                    isActive
+                  className={`relative p-4 rounded-2xl border-2 transition-all duration-200 flex flex-col items-center gap-1.5 group active:scale-[0.97] ${isActive
                       ? 'border-[#0037b0] bg-blue-50 shadow-md ring-2 ring-[#0037b0]/20'
                       : 'border-slate-200 bg-white hover:border-[#0037b0]/40 hover:bg-blue-50/50 hover:shadow-sm'
-                  }`}
+                    }`}
                 >
                   {/* Selected checkmark */}
                   {isActive && (
@@ -73,16 +72,14 @@ export const LanguageSelectDialog: React.FC<LanguageSelectDialogProps> = ({
                   )}
 
                   {/* Native label (large) */}
-                  <span className={`text-lg font-bold transition-colors ${
-                    isActive ? 'text-[#0037b0]' : 'text-slate-800 group-hover:text-[#0037b0]'
-                  }`}>
+                  <span className={`text-lg font-bold transition-colors ${isActive ? 'text-[#0037b0]' : 'text-slate-800 group-hover:text-[#0037b0]'
+                    }`}>
                     {lang.nativeLabel}
                   </span>
 
                   {/* English label */}
-                  <span className={`text-[11px] font-semibold uppercase tracking-wider ${
-                    isActive ? 'text-[#0037b0]/70' : 'text-slate-400'
-                  }`}>
+                  <span className={`text-[11px] font-semibold uppercase tracking-wider ${isActive ? 'text-[#0037b0]/70' : 'text-slate-400'
+                    }`}>
                     {lang.label}
                   </span>
                 </button>
