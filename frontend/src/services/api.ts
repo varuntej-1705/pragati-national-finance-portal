@@ -67,7 +67,7 @@ export class ApiService {
                 projectTypes: ['business', 'dairy', 'micro', 'services', 'education']
               },
               requiredDocuments: s.required_documents || ['Aadhaar Card', 'Caste Certificate (SC)', 'Income Certificate'],
-              imageUrl: 'https://images.unsplash.com/photo-1593113598332-cd288d649433?auto=format&fit=crop&q=80&w=800',
+              imageUrl: 'https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?auto=format&fit=crop&q=80&w=800',
               officialPortalUrl: s.official_portal_url || 'https://nsfdc.nic.in'
             },
             matchScore: Math.round(item.match_score),

@@ -45,8 +45,8 @@ export const NSFDC_SCHEMES: Scheme[] = [
       'Bank passbook / account details',
       'SHG registration certificate'
     ],
-    imageUrl: 'https://images.unsplash.com/photo-1609137144822-2636a0d2f099?auto=format&fit=crop&w=800&q=80',
-    imageSourceUrl: 'https://images.unsplash.com/photo-1609137144822-2636a0d2f099',
+    imageUrl: '/schemes/scheme_msy.jpg',
+    imageSourceUrl: '/schemes/scheme_msy.jpg',
     fastSanctionDays: 7
   },
 
@@ -87,8 +87,8 @@ export const NSFDC_SCHEMES: Scheme[] = [
       'Residence proof',
       'Bank passbook / account details'
     ],
-    imageUrl: 'https://images.unsplash.com/photo-1596461404969-9ae70f2830c1?auto=format&fit=crop&w=800&q=80',
-    imageSourceUrl: 'https://images.unsplash.com/photo-1596461404969-9ae70f2830c1',
+    imageUrl: '/schemes/scheme_mcf.jpg',
+    imageSourceUrl: '/schemes/scheme_mcf.jpg',
     fastSanctionDays: 5
   },
 
@@ -130,8 +130,8 @@ export const NSFDC_SCHEMES: Scheme[] = [
       'Bank passbook / account details',
       'Project/Business plan'
     ],
-    imageUrl: 'https://images.unsplash.com/photo-1570042225831-d98fa7577f1e?auto=format&fit=crop&w=800&q=80',
-    imageSourceUrl: 'https://images.unsplash.com/photo-1570042225831-d98fa7577f1e',
+    imageUrl: '/schemes/scheme_suvidha.jpg',
+    imageSourceUrl: '/schemes/scheme_suvidha.jpg',
     fastSanctionDays: 14
   },
 
@@ -173,8 +173,8 @@ export const NSFDC_SCHEMES: Scheme[] = [
       'Bank passbook / account details',
       'Detailed Project Report (DPR) / Business plan'
     ],
-    imageUrl: 'https://images.unsplash.com/photo-1581092160607-ee22621dd758?auto=format&fit=crop&w=800&q=80',
-    imageSourceUrl: 'https://images.unsplash.com/photo-1581092160607-ee22621dd758',
+    imageUrl: '/schemes/scheme_utkarsh.jpg',
+    imageSourceUrl: '/schemes/scheme_utkarsh.jpg',
     fastSanctionDays: 21
   },
 
@@ -218,8 +218,8 @@ export const NSFDC_SCHEMES: Scheme[] = [
       'Admission letter & Fee structure',
       'Marksheet & academic records'
     ],
-    imageUrl: 'https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&w=800&q=80',
-    imageSourceUrl: 'https://images.unsplash.com/photo-1523240795612-9a054b0db644',
+    imageUrl: '/schemes/scheme_els.jpg',
+    imageSourceUrl: '/schemes/scheme_els.jpg',
     fastSanctionDays: 14
   },
 
@@ -261,8 +261,8 @@ export const NSFDC_SCHEMES: Scheme[] = [
       'Residence proof',
       'Bank passbook / account details'
     ],
-    imageUrl: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=800&q=80',
-    imageSourceUrl: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2',
+    imageUrl: '/schemes/scheme_swarnima.jpg',
+    imageSourceUrl: '/schemes/scheme_swarnima.jpg',
     fastSanctionDays: 10
   },
 
@@ -304,8 +304,8 @@ export const NSFDC_SCHEMES: Scheme[] = [
       'Residence proof',
       'Bank passbook / account details'
     ],
-    imageUrl: 'https://images.unsplash.com/photo-1607604276583-eef5d076aa5f?auto=format&fit=crop&w=800&q=80',
-    imageSourceUrl: 'https://images.unsplash.com/photo-1607604276583-eef5d076aa5f',
+    imageUrl: 'https://images.unsplash.com/photo-1594608661623-aa0bd3a69799?auto=format&fit=crop&w=800&q=80',
+    imageSourceUrl: 'https://images.unsplash.com/photo-1594608661623-aa0bd3a69799',
     fastSanctionDays: 14
   },
 
@@ -347,8 +347,8 @@ export const NSFDC_SCHEMES: Scheme[] = [
       'Bank passbook / account details',
       'Business plan'
     ],
-    imageUrl: 'https://images.unsplash.com/photo-1528698827591-e19ccd7bc23d?auto=format&fit=crop&w=800&q=80',
-    imageSourceUrl: 'https://images.unsplash.com/photo-1528698827591-e19ccd7bc23d',
+    imageUrl: 'https://images.unsplash.com/photo-1604719312566-8912e9227c6a?auto=format&fit=crop&w=800&q=80',
+    imageSourceUrl: 'https://images.unsplash.com/photo-1604719312566-8912e9227c6a',
     fastSanctionDays: 14
   },
 
@@ -390,8 +390,8 @@ export const NSFDC_SCHEMES: Scheme[] = [
       'Bank passbook / account details',
       'Business plan'
     ],
-    imageUrl: 'https://images.unsplash.com/photo-1584824486509-112e4181ff6b?auto=format&fit=crop&w=800&q=80',
-    imageSourceUrl: 'https://images.unsplash.com/photo-1584824486509-112e4181ff6b',
+    imageUrl: 'https://images.unsplash.com/photo-1532996122724-e3c354a0b15b?auto=format&fit=crop&w=800&q=80',
+    imageSourceUrl: 'https://images.unsplash.com/photo-1532996122724-e3c354a0b15b',
     fastSanctionDays: 21
   },
 
@@ -433,8 +433,8 @@ export const NSFDC_SCHEMES: Scheme[] = [
       'Bank passbook / account details',
       'Admission letter'
     ],
-    imageUrl: 'https://images.unsplash.com/photo-1581092918056-0c4c3acd3789?auto=format&fit=crop&w=800&q=80',
-    imageSourceUrl: 'https://images.unsplash.com/photo-1581092918056-0c4c3acd3789',
+    imageUrl: 'https://images.unsplash.com/photo-1581092921461-eab62e97a780?auto=format&fit=crop&w=800&q=80',
+    imageSourceUrl: 'https://images.unsplash.com/photo-1581092921461-eab62e97a780',
     fastSanctionDays: 10
   },
 
@@ -476,8 +476,8 @@ export const NSFDC_SCHEMES: Scheme[] = [
       'Bank passbook / account details',
       'Business plan'
     ],
-    imageUrl: 'https://images.unsplash.com/photo-1497435334941-8c899ee9e8e9?auto=format&fit=crop&w=800&q=80',
-    imageSourceUrl: 'https://images.unsplash.com/photo-1497435334941-8c899ee9e8e9',
+    imageUrl: 'https://images.unsplash.com/photo-1509391366360-2e959784a276?auto=format&fit=crop&w=800&q=80',
+    imageSourceUrl: 'https://images.unsplash.com/photo-1509391366360-2e959784a276',
     fastSanctionDays: 21
   },
 
@@ -518,8 +518,8 @@ export const NSFDC_SCHEMES: Scheme[] = [
       'Residence proof',
       'Bank passbook / account details'
     ],
-    imageUrl: 'https://images.unsplash.com/photo-1607604276583-eef5d076aa5f?auto=format&fit=crop&w=800&q=80',
-    imageSourceUrl: 'https://images.unsplash.com/photo-1607604276583-eef5d076aa5f',
+    imageUrl: 'https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?auto=format&fit=crop&w=800&q=80',
+    imageSourceUrl: 'https://images.unsplash.com/photo-1556742049-0cfed4f6a45d',
     fastSanctionDays: 5
   }
 ];
