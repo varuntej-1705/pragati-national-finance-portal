@@ -513,10 +513,14 @@ export const SchemeRecommender: React.FC<SchemeRecommenderProps> = ({
         {/* Scheme Cards List */}
         <div className="flex flex-col gap-4">
           {matchedRankedSchemes.map((matchItem, idx) => {
-            const { scheme, matchScore, confidence, qualifyingReasons, estimatedEmi } = matchItem;
+            const { scheme, matchScore, confidence, qualifyingReasons, missingOrCautionCriteria, estimatedEmi } = matchItem;
             const isExpanded = expandedSchemeId === scheme.id;
             const isLikely = confidence === 'likely';
             const isUnverified = scheme.verifyBeforeUse || scheme.interestRate === null;
+
+            // Top 2 reasons shown always visible
+            const visibleReasons = qualifyingReasons.slice(0, 2);
+            const remainingReasons = qualifyingReasons.slice(2);
 
             return (
               <div
@@ -574,6 +578,62 @@ export const SchemeRecommender: React.FC<SchemeRecommenderProps> = ({
                         {matchScore}% Match Score
                       </span>
                     </div>
+                  </div>
+
+                  {/* ── Match Score Progress Bar ── */}
+                  <div className="flex items-center gap-2.5">
+                    <div className="flex-1 h-2 rounded-full bg-slate-100 overflow-hidden">
+                      <div
+                        className={`h-full rounded-full transition-all duration-500 ${
+                          matchScore >= 75 ? 'bg-gradient-to-r from-emerald-500 to-emerald-400' :
+                          matchScore >= 50 ? 'bg-gradient-to-r from-amber-500 to-amber-400' :
+                          'bg-gradient-to-r from-rose-500 to-rose-400'
+                        }`}
+                        style={{ width: `${matchScore}%` }}
+                      />
+                    </div>
+                    <span className={`text-xs font-extrabold min-w-[3rem] text-right ${
+                      matchScore >= 75 ? 'text-emerald-700' :
+                      matchScore >= 50 ? 'text-amber-700' :
+                      'text-rose-700'
+                    }`}>
+                      {matchScore}%
+                    </span>
+                  </div>
+
+                  {/* ── Always-Visible: Why This Matches You ── */}
+                  <div className={`p-3 rounded-2xl border text-xs flex flex-col gap-2 ${
+                    isLikely
+                      ? 'bg-emerald-50/70 border-emerald-200/80'
+                      : 'bg-amber-50/70 border-amber-200/80'
+                  }`}>
+                    <div className="flex items-center gap-1.5">
+                      <span className={`material-symbols-outlined text-[16px] ${
+                        isLikely ? 'text-emerald-600' : 'text-amber-600'
+                      }`}>
+                        {isLikely ? 'verified' : 'info'}
+                      </span>
+                      <span className={`font-bold uppercase tracking-wider text-[10px] ${
+                        isLikely ? 'text-emerald-800' : 'text-amber-800'
+                      }`}>
+                        Why This Scheme Matches You
+                      </span>
+                    </div>
+                    <ul className="flex flex-col gap-1.5 pl-0.5">
+                      {visibleReasons.map((reason, rIdx) => (
+                        <li key={rIdx} className="flex items-start gap-2 text-slate-700">
+                          <span className="material-symbols-outlined text-[14px] text-emerald-600 shrink-0 mt-0.5">
+                            check_circle
+                          </span>
+                          <span className="leading-snug">{reason}</span>
+                        </li>
+                      ))}
+                    </ul>
+                    {(remainingReasons.length > 0 || missingOrCautionCriteria.length > 0) && (
+                      <span className="text-[10px] text-slate-500 font-medium">
+                        +{remainingReasons.length + missingOrCautionCriteria.length} more factors • Tap below for full breakdown
+                      </span>
+                    )}
                   </div>
 
                   {/* ── Key Parameters Grid (With Fallback for Null Rates/Terms) ── */}
@@ -639,15 +699,15 @@ export const SchemeRecommender: React.FC<SchemeRecommenderProps> = ({
                     </div>
                   ) : null}
 
-                  {/* ── Expandable "Why You Qualify" Explanation (Grounded in Scheme Data) ── */}
+                  {/* ── Expandable Full Match Breakdown ── */}
                   <div className="border-t border-slate-100 pt-2">
                     <button
                       onClick={() => toggleWhyYouQualify(scheme.id)}
                       className="w-full flex items-center justify-between text-xs font-bold text-[#0037b0] py-1 hover:text-[#0a2560] transition-colors"
                     >
                       <span className="flex items-center gap-1.5">
-                        <span className="material-symbols-outlined text-[16px]">info</span>
-                        {isExpanded ? 'Hide Why You Qualify' : 'Why You Qualify (Grounded in Scheme Data)'}
+                        <span className="material-symbols-outlined text-[16px]">analytics</span>
+                        {isExpanded ? 'Hide Full Match Breakdown' : 'View Full Match Breakdown'}
                       </span>
                       <span className="material-symbols-outlined text-[16px]">
                         {isExpanded ? 'expand_less' : 'expand_more'}
@@ -655,26 +715,80 @@ export const SchemeRecommender: React.FC<SchemeRecommenderProps> = ({
                     </button>
 
                     {isExpanded && (
-                      <div className="mt-2.5 p-3.5 rounded-2xl bg-slate-50 border border-slate-200/80 text-xs flex flex-col gap-2">
-                        <span className="text-[10px] font-bold text-slate-500 uppercase tracking-wider">
-                          Eligibility Factors Verified Against Official Rules:
-                        </span>
-                        <ul className="flex flex-col gap-1.5 pl-1">
-                          {qualifyingReasons.map((reason, rIdx) => (
-                            <li key={rIdx} className="flex items-start gap-2 text-slate-700">
+                      <div className="mt-2.5 p-3.5 rounded-2xl bg-slate-50 border border-slate-200/80 text-xs flex flex-col gap-3">
+                        {/* Qualifying Factors */}
+                        <div className="flex flex-col gap-2">
+                          <span className="text-[10px] font-bold text-emerald-700 uppercase tracking-wider flex items-center gap-1">
+                            <span className="material-symbols-outlined text-[13px]">check_circle</span>
+                            Qualifying Factors ({qualifyingReasons.length} Passed)
+                          </span>
+                          <ul className="flex flex-col gap-1.5 pl-1">
+                            {qualifyingReasons.map((reason, rIdx) => (
+                              <li key={rIdx} className="flex items-start gap-2 text-slate-700">
+                                <span className="material-symbols-outlined text-[15px] text-emerald-600 shrink-0 mt-0.5">
+                                  check_circle
+                                </span>
+                                <span>{reason}</span>
+                              </li>
+                            ))}
+                            <li className="flex items-start gap-2 text-slate-700">
                               <span className="material-symbols-outlined text-[15px] text-emerald-600 shrink-0 mt-0.5">
-                                check_circle
+                                verified
                               </span>
-                              <span>{reason}</span>
+                              <span>Target group: {scheme.targetGroupDescription || scheme.eligibilityConditions.targetGroup}</span>
                             </li>
-                          ))}
-                          <li className="flex items-start gap-2 text-slate-700">
-                            <span className="material-symbols-outlined text-[15px] text-emerald-600 shrink-0 mt-0.5">
-                              verified
+                          </ul>
+                        </div>
+
+                        {/* Caution / Missing Criteria */}
+                        {missingOrCautionCriteria.length > 0 && (
+                          <div className="flex flex-col gap-2 pt-2 border-t border-slate-200/60">
+                            <span className="text-[10px] font-bold text-amber-700 uppercase tracking-wider flex items-center gap-1">
+                              <span className="material-symbols-outlined text-[13px]">warning</span>
+                              Points to Note ({missingOrCautionCriteria.length})
                             </span>
-                            <span>Target group: {scheme.targetGroupDescription || scheme.eligibilityConditions.targetGroup}</span>
-                          </li>
-                        </ul>
+                            <ul className="flex flex-col gap-1.5 pl-1">
+                              {missingOrCautionCriteria.map((caution, cIdx) => (
+                                <li key={cIdx} className="flex items-start gap-2 text-slate-600">
+                                  <span className="material-symbols-outlined text-[15px] text-amber-500 shrink-0 mt-0.5">
+                                    info
+                                  </span>
+                                  <span>{caution}</span>
+                                </li>
+                              ))}
+                            </ul>
+                          </div>
+                        )}
+
+                        {/* How Match Score Is Calculated */}
+                        <div className="flex flex-col gap-1.5 pt-2 border-t border-slate-200/60">
+                          <span className="text-[10px] font-bold text-slate-500 uppercase tracking-wider flex items-center gap-1">
+                            <span className="material-symbols-outlined text-[13px]">calculate</span>
+                            How Match Score Is Calculated
+                          </span>
+                          <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
+                            <div className="p-2 rounded-xl bg-white border border-slate-200 text-center">
+                              <span className="text-[10px] text-slate-500 block">Caste</span>
+                              <span className="text-xs font-bold text-emerald-700">30 pts</span>
+                            </div>
+                            <div className="p-2 rounded-xl bg-white border border-slate-200 text-center">
+                              <span className="text-[10px] text-slate-500 block">Income</span>
+                              <span className="text-xs font-bold text-emerald-700">30 pts</span>
+                            </div>
+                            <div className="p-2 rounded-xl bg-white border border-slate-200 text-center">
+                              <span className="text-[10px] text-slate-500 block">Project Fit</span>
+                              <span className="text-xs font-bold text-emerald-700">25 pts</span>
+                            </div>
+                            <div className="p-2 rounded-xl bg-white border border-slate-200 text-center">
+                              <span className="text-[10px] text-slate-500 block">Funding Range</span>
+                              <span className="text-xs font-bold text-emerald-700">15 pts</span>
+                            </div>
+                          </div>
+                          <p className="text-[10px] text-slate-500 leading-relaxed mt-0.5">
+                            Your profile is evaluated across 4 eligibility dimensions. Women applicants receive up to 20 bonus points. 
+                            Schemes requiring verification are capped at 75% score until confirmed by a Channel Partner.
+                          </p>
+                        </div>
                       </div>
                     )}
                   </div>

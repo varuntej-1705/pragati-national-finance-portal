@@ -198,7 +198,7 @@ export const ProfileModal: React.FC<ProfileModalProps> = ({
   // Compute matched schemes
   const matchedSchemes = NSFDC_SCHEMES.filter(s => {
     if (caste === 'SC' || caste === 'ST') return true;
-    if (s.eligibilityConditions.targetGroup === 'SC') return caste === 'SC';
+    if (s.eligibilityConditions.targetGroup === 'SC') return false;
     return true;
   }).slice(0, 5);
 

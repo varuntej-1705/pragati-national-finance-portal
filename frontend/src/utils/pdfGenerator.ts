@@ -121,7 +121,7 @@ export function generateRepaymentSchedulePdf(data: RepaymentPdfData): void {
   doc.setFont('helvetica', 'bold');
   doc.text(profile.name || 'Varun', col1 + 32, y + 5);
   doc.text(`+91 ${profile.phone || '9959999429'}`, col1 + 32, y + 11);
-  doc.text(`${profile.district || 'Mohanlalganj'}, UP`, col1 + 32, y + 17);
+  doc.text(`${profile.location?.district || 'Mohanlalganj'}, ${profile.location?.state || 'UP'}`, col1 + 32, y + 17);
 
   doc.setFont('helvetica', 'normal');
   doc.setTextColor(100, 116, 139);
@@ -131,7 +131,7 @@ export function generateRepaymentSchedulePdf(data: RepaymentPdfData): void {
 
   doc.setFont('helvetica', 'bold');
   doc.setTextColor(15, 23, 42);
-  doc.text((profile.category || 'OBC (Concessional Priority)').toUpperCase(), col3 + 26, y + 5);
+  doc.text((profile.caste || 'OBC (Concessional Priority)').toUpperCase(), col3 + 26, y + 5);
   doc.text('Special Interest Concession', col3 + 26, y + 11);
   doc.text('Small Business / MSME', col3 + 26, y + 17);
 
